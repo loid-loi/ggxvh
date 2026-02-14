@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V-Day.exe | Besties Only</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Courier+Prime:wght@700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #000000;
+      color: #0080ff;
+      font-family: 'Courier Prime', monospace;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    /* Moving Blue Grid Background */
+    .grid {
+      position: fixed;
+      top: 0; left: 0; width: 200%; height: 200%;
+      background-image: 
+        linear-gradient(to right, rgba(0, 128, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 128, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      transform: rotateX(60deg) translateY(-20%);
+      animation: moveGrid 10s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes moveGrid {
+      from { transform: rotateX(60deg) translateY(0); }
+      to { transform: rotateX(60deg) translateY(50px); }
+    }
+
+    .card {
+      position: relative;
+      z-index: 10;
+      max-width: 500px;
+      width: 90%;
+      background: rgba(0, 5, 15, 0.95);
+      border: 5px solid #0080ff;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 0 40px #004488, 15px 15px 0px #001a33;
+      transform-style: preserve-3d;
+      animation: hoverCard 4s ease-in-out infinite;
+    }
+
+    @keyframes hoverCard {
+      0%, 100% { transform: translateY(0) rotateY(0); }
+      50% { transform: translateY(-15px) rotateY(5deg); }
+    }
+
+    h1 {
+      font-family: 'Bungee', cursive;
+      font-size: 2.5rem;
+      color: #00d4ff;
+      text-shadow: 4px 4px 0px #002244;
+      margin-bottom: 15px;
+    }
+
+    .console {
+      background: #000;
+      border: 1px solid #004488;
+      padding: 15px;
+      text-align: left;
+      font-size: 0.85rem;
+      margin: 20px 0;
+      height: 120px;
+      overflow: hidden;
+    }
+
+    .btn-glitch {
+      background: #0080ff;
+      color: #000;
+      border: none;
+      padding: 15px 25px;
+      font-family: 'Bungee';
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.2s;
+    }
+
+    .btn-glitch:hover {
+      box-shadow: -5px 5px 0px #00d4ff;
+      transform: translate(3px, -3px);
+    }
+
+    .btn-glitch:active {
+      background: #ff00ff; /* Secret momentary red/pink glitch forbidden! Just kidding, keep it blue */
+      background: #00ffff; 
+    }
+
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      animation: floatUp 5s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(110vh) scale(1); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-20vh) scale(2); opacity: 0; }
+    }
+
+    #funny-alert {
+      position: fixed;
+      top: 20%;
+      background: #0080ff;
+      color: #000;
+      padding: 10px;
+      font-weight: bold;
+      display: none;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid"></div>
+  <div id="particles"></div>
+  <div id="funny-alert">WARNING: FRIENDSHIP OVERLOAD! 🍕</div>
+
+  <div class="card">
+    <h1>V-DAY 2.0</h1>
+    
+    <div class="console" id="console">
+      > Initializing Friend_Zone.bat...<br>
+      > Scanning for romantic partners...<br>
+      > 404 NOT FOUND.<br>
+      > Redirecting to Pizza_and_Video_Games...<br>
+      > [SUCCESS]
+    </div>
+
+    <p style="margin: 15px 0; color: #b3e5fc;">
+      "Roses are blue, my circuits are too. Being single is fine when I'm hanging with you."
+    </p>
+
+    <button class="btn-glitch" onclick="triggerFunny()">TEST FRIENDSHIP</button>
+
+    <div style="margin-top: 20px;">
+      <audio id="bgm" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-funny-song.mp3" type="audio/mpeg">
+      </audio>
+      <span style="font-size: 0.7rem; color: #004488;">(CLICK ANYWHERE FOR AUDIO)</span>
+    </div>
+
+    <footer style="margin-top: 25px; font-size: 0.6rem; color: #003366;">
+      SYSTEM_STATUS: TOO_COOL_FOR_CUPID
+    </footer>
+  </div>
+
+  <script>
+    // Create funny blue floaties
+    function spawnParticles() {
+      const container = document.getElementById('particles');
+      const icons = ['💙', '🍕', '🎮', '💀', '👽', '🍩', '🥶'];
+      setInterval(() => {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.innerText = icons[Math.floor(Math.random() * icons.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (Math.random() * 30 + 10) + 'px';
+        container.appendChild(p);
+        setTimeout(() => p.remove(), 5000);
+      }, 300);
+    }
+
+    // Console typing effect
+    const lines = [
+      "> Loading awkward_compliment.js...",
+      "> You're less annoying than most people.",
+      "> Sending virtual high-five...",
+      "> Error: High-five was too powerful.",
+      "> Pizza levels: CRITICAL.",
+      "> Stay blue, my friend."
+    ];
+    let i = 0;
+    setInterval(() => {
+      const con = document.getElementById('console');
+      con.innerHTML += `<br>${lines[i % lines.length]}`;
+      con.scrollTop = con.scrollHeight;
+      i++;
+    }, 2000);
+
+    // Interactive Funny Button
+    function triggerFunny() {
+      const alertBox = document.getElementById('funny-alert');
+      alertBox.style.display = 'block';
+      alertBox.style.left = Math.random() * 50 + '%';
+      
+      document.body.style.backgroundColor = "#001a33";
+      setTimeout(() => {
+        document.body.style.backgroundColor = "#000";
+        alertBox.style.display = 'none';
+      }, 500);
+
+      const music = document.getElementById('bgm');
+      music.play();
+    }
+
+    window.onclick = () => document.getElementById('bgm').play();
+    spawnParticles();
+  </script>
+
+</body>
+</html>
